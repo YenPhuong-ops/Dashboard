@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy + Hover Effect) ────────
+# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy + Hover Effect CỰC MẠNH) ────────
 st.markdown("""
 <style>
   /* Nền tổng thể: Tím/Hồng pastel rất nhạt */
@@ -24,20 +24,21 @@ st.markdown("""
   
   /* 🌟 CÁC Ô SỐ LIỆU (METRIC CARDS) 🌟 */
   [data-testid="metric-container"] {
-    background-color: #FFFFFF;
-    border: 1px solid #F3E5F5;
-    border-radius: 12px;
-    padding: 16px 15px; /* Chỉnh lại lề để chữ có không gian */
-    box-shadow: 0 4px 10px rgba(156, 39, 176, 0.05);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Hiệu ứng chuyển động mượt */
-    cursor: default;
+    background-color: #FFFFFF !important;
+    border: 1px solid #F3E5F5 !important;
+    border-radius: 12px !important;
+    padding: 16px 15px !important; 
+    box-shadow: 0 4px 10px rgba(156, 39, 176, 0.05) !important;
+    /* Hiệu ứng chuyển động mượt */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important; 
+    cursor: pointer !important;
   }
   
-  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) 🌟 */
+  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) LIỀU CAO 🌟 */
   [data-testid="metric-container"]:hover {
-    transform: translateY(-6px); /* Nảy khối lên trên 6 pixel */
-    box-shadow: 0 12px 20px rgba(216, 27, 96, 0.25); /* Đổ bóng hồng/tím đậm hơn */
-    border-color: #D81B60; /* Viền sáng lên màu hồng đậm */
+    transform: translateY(-10px) scale(1.03) !important; /* Nảy lên cao hơn và hơi phóng to */
+    box-shadow: 0 15px 25px rgba(216, 27, 96, 0.3) !important; /* Bóng đậm và rộng hơn */
+    border-color: #D81B60 !important; /* Đổi màu viền */
   }
 
   [data-testid="metric-container"] label { color: #3949AB !important; font-size: 14px !important; font-weight: 700 !important; }
@@ -47,11 +48,11 @@ st.markdown("""
   
   /* 🌟 FIX LỖI CHỮ BỊ CẮT THÀNH DẤU ... 🌟 */
   [data-testid="stMetricDelta"] > div {
-    white-space: normal !important; /* Cho phép chữ tự động rớt dòng */
+    white-space: normal !important; 
     overflow: visible !important;
     text-overflow: clip !important;
     font-size: 12px !important;
-    color: #5C6BC0 !important; /* Màu xanh nhạt dễ đọc */
+    color: #5C6BC0 !important; 
     font-weight: 500 !important;
     line-height: 1.4 !important;
     margin-top: 5px !important;
