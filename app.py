@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy) ───────────
+# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy + Hover Effect) ────────
 st.markdown("""
 <style>
   /* Nền tổng thể: Tím/Hồng pastel rất nhạt */
@@ -22,17 +22,44 @@ st.markdown("""
   /* Sidebar: Hồng phấn */
   [data-testid="stSidebar"] { background-color: #FFF0F5; border-right: 1px solid #FCE4EC; }
   
-  /* Các ô số liệu (Metric Cards) */
+  /* 🌟 CÁC Ô SỐ LIỆU (METRIC CARDS) 🌟 */
   [data-testid="metric-container"] {
     background-color: #FFFFFF;
     border: 1px solid #F3E5F5;
     border-radius: 12px;
-    padding: 16px 20px;
+    padding: 16px 15px; /* Chỉnh lại lề để chữ có không gian */
     box-shadow: 0 4px 10px rgba(156, 39, 176, 0.05);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Hiệu ứng chuyển động mượt */
+    cursor: default;
   }
+  
+  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) 🌟 */
+  [data-testid="metric-container"]:hover {
+    transform: translateY(-6px); /* Nảy khối lên trên 6 pixel */
+    box-shadow: 0 12px 20px rgba(216, 27, 96, 0.25); /* Đổ bóng hồng/tím đậm hơn */
+    border-color: #D81B60; /* Viền sáng lên màu hồng đậm */
+  }
+
   [data-testid="metric-container"] label { color: #3949AB !important; font-size: 14px !important; font-weight: 700 !important; }
   [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #D81B60 !important; font-size: 28px !important; font-weight: 800 !important;
+    color: #D81B60 !important; font-size: 26px !important; font-weight: 800 !important;
+  }
+  
+  /* 🌟 FIX LỖI CHỮ BỊ CẮT THÀNH DẤU ... 🌟 */
+  [data-testid="stMetricDelta"] > div {
+    white-space: normal !important; /* Cho phép chữ tự động rớt dòng */
+    overflow: visible !important;
+    text-overflow: clip !important;
+    font-size: 12px !important;
+    color: #5C6BC0 !important; /* Màu xanh nhạt dễ đọc */
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    margin-top: 5px !important;
+  }
+  
+  /* Ẩn mũi tên mặc định của Streamlit ở phần ghi chú */
+  [data-testid="stMetricDelta"] svg {
+    display: none !important;
   }
   
   /* Tiêu đề */
@@ -68,27 +95,26 @@ st.markdown("""
     border-bottom: 2px solid #F8BBD0; padding-bottom: 8px; margin-bottom: 12px;
   }
   
-  /* Đổi màu chữ mặc định của Streamlit sang Xanh Navy */
   p, div, span, label { color: #1A237E; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Color palette (Bảng màu Pastel Tím/Hồng/Blue) ───────────────────────────
+# ── Color palette ───────────────────────────
 COLORS = {
     "pink":    "#F48FB1", "purple":  "#CE93D8", "blue":    "#90CAF9",
     "indigo":  "#9FA8DA", "rose":    "#FFAB91", "deep_pink": "#D81B60",
     "navy":    "#1A237E"
 }
 SEG_COLORS = {
-    "Office-Gym Power User": "#F48FB1", # Pink Pastel
-    "Gym Enthusiast":        "#CE93D8", # Purple Pastel
-    "Office Professional":   "#90CAF9", # Blue Pastel
-    "General Consumer":      "#BCAAA4", # Warm Gray Pastel
+    "Office-Gym Power User": "#F48FB1", 
+    "Gym Enthusiast":        "#CE93D8", 
+    "Office Professional":   "#90CAF9", 
+    "General Consumer":      "#BCAAA4", 
 }
 
 CHART_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(color="#1A237E", family="Arial", size=13), # Chữ xanh navy
+    font=dict(color="#1A237E", family="Arial", size=13),
     margin=dict(t=50, b=40, l=40, r=20),
     hoverlabel=dict(bgcolor="#FFFFFF", font_color="#1A237E", bordercolor="#CE93D8"),
     legend=dict(bgcolor="rgba(255,255,255,0.7)", bordercolor="#F3E5F5", borderwidth=1), 
