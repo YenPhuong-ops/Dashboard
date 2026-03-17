@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy + Hover Effect CỰC MẠNH) ────────
+# ── Custom CSS (Ép xung hiệu ứng Hover & Sửa giao diện) ──────────────────
 st.markdown("""
 <style>
   /* Nền tổng thể: Tím/Hồng pastel rất nhạt */
@@ -22,27 +22,31 @@ st.markdown("""
   /* Sidebar: Hồng phấn */
   [data-testid="stSidebar"] { background-color: #FFF0F5; border-right: 1px solid #FCE4EC; }
   
-  /* 🌟 CÁC Ô SỐ LIỆU (METRIC CARDS) 🌟 */
-  [data-testid="metric-container"] {
+  /* 🌟 CÁC Ô SỐ LIỆU (METRIC CARDS) - NHẮM THẲNG VÀO LỚP LÕI 🌟 */
+  div[data-testid="stMetric"], [data-testid="metric-container"] {
     background-color: #FFFFFF !important;
     border: 1px solid #F3E5F5 !important;
     border-radius: 12px !important;
     padding: 16px 15px !important; 
     box-shadow: 0 4px 10px rgba(156, 39, 176, 0.05) !important;
-    /* Hiệu ứng chuyển động mượt */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important; 
+    transition: all 0.3s ease-in-out !important; 
     cursor: pointer !important;
+    position: relative !important;
+    z-index: 1 !important;
   }
   
-  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) LIỀU CAO 🌟 */
-  [data-testid="metric-container"]:hover {
-    transform: translateY(-10px) scale(1.03) !important; /* Nảy lên cao hơn và hơi phóng to */
-    box-shadow: 0 15px 25px rgba(216, 27, 96, 0.3) !important; /* Bóng đậm và rộng hơn */
-    border-color: #D81B60 !important; /* Đổi màu viền */
+  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) BAO NẢY 🌟 */
+  div[data-testid="stMetric"]:hover, [data-testid="metric-container"]:hover {
+    transform: translateY(-8px) scale(1.02) !important; 
+    box-shadow: 0 15px 30px rgba(216, 27, 96, 0.25) !important; 
+    border-color: #D81B60 !important; 
+    z-index: 99 !important; /* Ép nổi lên trên cùng */
   }
 
-  [data-testid="metric-container"] label { color: #3949AB !important; font-size: 14px !important; font-weight: 700 !important; }
-  [data-testid="metric-container"] [data-testid="stMetricValue"] {
+  div[data-testid="stMetric"] label, [data-testid="metric-container"] label { 
+    color: #3949AB !important; font-size: 14px !important; font-weight: 700 !important; 
+  }
+  div[data-testid="stMetric"] [data-testid="stMetricValue"], [data-testid="metric-container"] [data-testid="stMetricValue"] {
     color: #D81B60 !important; font-size: 26px !important; font-weight: 800 !important;
   }
   
@@ -194,7 +198,7 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown('<div class="sidebar-title">ℹ️ INFO</div>', unsafe_allow_html=True)
-    st.caption("📍 **Dataset:** T0 — January 2025")
+    st.caption("📍 **Dataset:** T0 — January")
     st.caption("📍 **Status:** Pre-HubSpot Campaign")
     st.caption(f"📍 **Total Raw:** {len(df)} contacts")
 
@@ -365,7 +369,7 @@ st.dataframe(display_df.head(50), use_container_width=True, height=380)
 st.markdown("---")
 st.markdown(
     "<div style='text-align:center;color:#3949AB;font-size:13px; font-weight:600;'>"
-    "COOLMATE ANALYTICS DASHBOARD | Pre-Campaign Snapshot 2025"
+    "COOLMATE ANALYTICS DASHBOARD | Pre-Campaign Snapshot"
     "</div>",
     unsafe_allow_html=True
 )
