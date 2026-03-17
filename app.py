@@ -13,82 +13,87 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS (Nền sáng, chữ tương phản, phong cách Pastel) ───────────
+# ── Custom CSS (Nền Hồng/Tím Pastel, Chữ Xanh Navy) ───────────
 st.markdown("""
 <style>
-  /* Nền tổng thể và chữ */
-  .stApp { background-color: #F8FAFC; color: #1E293B; }
-  [data-testid="stSidebar"] { background-color: #F1F5F9; border-right: 1px solid #E2E8F0; }
+  /* Nền tổng thể: Tím/Hồng pastel rất nhạt */
+  .stApp { background-color: #FDF8FF; color: #1A237E; }
+  
+  /* Sidebar: Hồng phấn */
+  [data-testid="stSidebar"] { background-color: #FFF0F5; border-right: 1px solid #FCE4EC; }
   
   /* Các ô số liệu (Metric Cards) */
   [data-testid="metric-container"] {
     background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #F3E5F5;
     border-radius: 12px;
     padding: 16px 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 10px rgba(156, 39, 176, 0.05);
   }
-  [data-testid="metric-container"] label { color: #64748B !important; font-size: 14px !important; font-weight: 600 !important; }
+  [data-testid="metric-container"] label { color: #3949AB !important; font-size: 14px !important; font-weight: 700 !important; }
   [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #0F766E !important; font-size: 28px !important; font-weight: 800 !important;
+    color: #D81B60 !important; font-size: 28px !important; font-weight: 800 !important;
   }
   
   /* Tiêu đề */
-  h1 { color: #0F766E !important; font-size: 28px !important; font-weight: 800 !important; text-transform: uppercase; }
-  h2 { color: #1E293B !important; font-size: 20px !important; font-weight: 700 !important; }
+  h1 { color: #880E4F !important; font-size: 28px !important; font-weight: 800 !important; text-transform: uppercase; }
+  h2, h3 { color: #1A237E !important; font-weight: 700 !important; }
   
   /* Header của từng phần */
   .section-header {
-    background: linear-gradient(90deg, #CCFBF1, transparent);
-    border-left: 6px solid #14B8A6;
+    background: linear-gradient(90deg, #FCE4EC, transparent);
+    border-left: 6px solid #D81B60;
     padding: 10px 16px; border-radius: 0 8px 8px 0;
     margin: 30px 0 16px 0;
-    color: #0D9488; font-weight: 800; font-size: 18px;
+    color: #AD1457; font-weight: 800; font-size: 18px;
     text-transform: uppercase; letter-spacing: 0.5px;
   }
   
   /* Hộp Insight */
   .insight-box {
-    background: #F0FDF4; border: 1px solid #BBF7D0;
+    background: #E8EAF6; border: 1px solid #C5CAE9;
     border-radius: 10px; padding: 16px 20px; margin: 8px 0;
-    font-size: 15px; color: #166534; line-height: 1.6;
+    font-size: 15px; color: #1A237E; line-height: 1.6;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
   }
-  .insight-box b { color: #15803D; font-size: 16px; }
+  .insight-box b { color: #303F9F; font-size: 16px; }
   
   /* Bảng dữ liệu */
-  .dataframe { background: #FFFFFF !important; color: #1E293B !important; border: 1px solid #E2E8F0 !important; }
-  thead tr th { background: #F8FAFC !important; color: #0F766E !important; font-weight: 700 !important; }
+  .dataframe { background: #FFFFFF !important; color: #1A237E !important; border: 1px solid #F3E5F5 !important; }
+  thead tr th { background: #FCE4EC !important; color: #880E4F !important; font-weight: 700 !important; }
   
   /* Thanh Sidebar */
   .sidebar-title {
-    color: #0F766E; font-weight: 800; font-size: 16px;
-    border-bottom: 2px solid #CCFBF1; padding-bottom: 8px; margin-bottom: 12px;
+    color: #D81B60; font-weight: 800; font-size: 16px;
+    border-bottom: 2px solid #F8BBD0; padding-bottom: 8px; margin-bottom: 12px;
   }
+  
+  /* Đổi màu chữ mặc định của Streamlit sang Xanh Navy */
+  p, div, span, label { color: #1A237E; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Color palette (Bảng màu Pastel hiện đại) ───────────────────────────
+# ── Color palette (Bảng màu Pastel Tím/Hồng/Blue) ───────────────────────────
 COLORS = {
-    "teal":    "#5EEAD4", "orange":  "#FDBA74", "blue":    "#93C5FD",
-    "purple":  "#D8B4FE", "green":   "#86EFAC", "amber":   "#FDE047",
-    "red":     "#FDA4AF", "gray":    "#CBD5E1", "dark_teal": "#0F766E"
+    "pink":    "#F48FB1", "purple":  "#CE93D8", "blue":    "#90CAF9",
+    "indigo":  "#9FA8DA", "rose":    "#FFAB91", "deep_pink": "#D81B60",
+    "navy":    "#1A237E"
 }
 SEG_COLORS = {
-    "Office-Gym Power User": "#5EEAD4", # Teal Pastel
-    "Gym Enthusiast":        "#86EFAC", # Green Pastel
-    "Office Professional":   "#93C5FD", # Blue Pastel
-    "General Consumer":      "#D8B4FE", # Purple Pastel
+    "Office-Gym Power User": "#F48FB1", # Pink Pastel
+    "Gym Enthusiast":        "#CE93D8", # Purple Pastel
+    "Office Professional":   "#90CAF9", # Blue Pastel
+    "General Consumer":      "#BCAAA4", # Warm Gray Pastel
 }
 
 CHART_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(color="#475569", family="Arial", size=13),
+    font=dict(color="#1A237E", family="Arial", size=13), # Chữ xanh navy
     margin=dict(t=50, b=40, l=40, r=20),
-    hoverlabel=dict(bgcolor="#FFFFFF", font_color="#1E293B", bordercolor="#E2E8F0"),
-    legend=dict(bgcolor="rgba(255,255,255,0.7)", bordercolor="#E2E8F0", borderwidth=1), 
-    xaxis=dict(gridcolor="#F1F5F9", linecolor="#CBD5E1", tickcolor="#CBD5E1", title_font=dict(color="#64748B")),
-    yaxis=dict(gridcolor="#F1F5F9", linecolor="#CBD5E1", tickcolor="#CBD5E1", title_font=dict(color="#64748B")),
+    hoverlabel=dict(bgcolor="#FFFFFF", font_color="#1A237E", bordercolor="#CE93D8"),
+    legend=dict(bgcolor="rgba(255,255,255,0.7)", bordercolor="#F3E5F5", borderwidth=1), 
+    xaxis=dict(gridcolor="#F3E5F5", linecolor="#CE93D8", tickcolor="#CE93D8", title_font=dict(color="#3949AB")),
+    yaxis=dict(gridcolor="#F3E5F5", linecolor="#CE93D8", tickcolor="#CE93D8", title_font=dict(color="#3949AB")),
 )
 
 # ── Load & process data ────────────────────────────────────────────────
@@ -180,8 +185,8 @@ with col_logo:
 with col_title:
     st.markdown("# COOLMATE: PRE-CAMPAIGN CUSTOMER ANALYTICS")
     st.markdown(
-        f"<span style='color:#64748B;font-size:14px; font-weight: 500;'>Data from T0 (Before Tech-Wear Launch) "
-        f"| Showing <b style='color:#0F766E'>{len(dff)}</b> / {len(df)} filtered contacts</span>",
+        f"<span style='color:#3949AB;font-size:14px; font-weight: 500;'>Data from T0 (Before Tech-Wear Launch) "
+        f"| Showing <b style='color:#D81B60'>{len(dff)}</b> / {len(df)} filtered contacts</span>",
         unsafe_allow_html=True
     )
 st.markdown("---")
@@ -222,7 +227,7 @@ with col_a:
     fig_seg = go.Figure(go.Pie(
         labels=seg_data["Phân khúc"], values=seg_data["Số contacts"], hole=0.55,
         marker=dict(colors=seg_data["Màu"].tolist(), line=dict(color="#FFFFFF", width=3)),
-        textinfo="label+percent", textfont=dict(size=13, color="#1E293B"),
+        textinfo="label+percent", textfont=dict(size=13, color="#1A237E"),
     ))
     fig_seg.update_layout(**CHART_LAYOUT)
     fig_seg.update_layout(title="Tỷ lệ Phân Khúc", showlegend=True,
@@ -237,12 +242,12 @@ with col_b:
     
     fig_seg_bar = go.Figure()
     for _, row in seg_stats.iterrows():
-        color = SEG_COLORS.get(row["segment"], "#CBD5E1")
+        color = SEG_COLORS.get(row["segment"], "#CE93D8")
         fig_seg_bar.add_trace(go.Bar(
             name=row["segment"], x=[row["segment"]], y=[row["Contacts"]],
             text=[f"{row['Contacts']} (Score: {row['Avg_Score']})"],
-            textposition="outside", textfont=dict(size=12, color="#1E293B"),
-            marker=dict(color=color, line=dict(color="#0F766E", width=1.5)), width=0.55,
+            textposition="outside", textfont=dict(size=12, color="#1A237E"),
+            marker=dict(color=color, line=dict(color="#D81B60", width=1.5)), width=0.55,
         ))
     
     fig_seg_bar.update_layout(**CHART_LAYOUT)
@@ -259,28 +264,28 @@ col_c, col_d = st.columns([3, 2])
 with col_c:
     fig_hist = go.Figure(go.Histogram(
         x=dff["lead_score_t0"], xbins=dict(start=0, end=35, size=2),
-        marker=dict(color=COLORS["teal"], opacity=0.9, line=dict(color="#0F766E", width=1)), name="Lead Score"
+        marker=dict(color=COLORS["purple"], opacity=0.9, line=dict(color="#880E4F", width=1)), name="Lead Score"
     ))
-    for val, label, color in [(20,"Warm (20)","#F59E0B"),(40,"MQL (40)","#0F766E")]:
+    for val, label, color in [(20,"Warm (20)","#3949AB"),(40,"MQL (40)","#D81B60")]:
         fig_hist.add_vline(x=val, line_width=2, line_dash="dash", line_color=color, annotation_text=label, annotation_font=dict(size=12, color=color))
     
     fig_hist.update_layout(title="Phân Phối Điểm Chất Lượng (Lead Score)", **{k:v for k,v in CHART_LAYOUT.items() if k not in ['xaxis','yaxis']})
-    fig_hist.update_xaxes(title="Điểm Lead Score", gridcolor="#F1F5F9", linecolor="#CBD5E1")
-    fig_hist.update_yaxes(title="Số lượng contacts", gridcolor="#F1F5F9", linecolor="#CBD5E1")
+    fig_hist.update_xaxes(title="Điểm Lead Score", gridcolor="#F3E5F5", linecolor="#CE93D8")
+    fig_hist.update_yaxes(title="Số lượng contacts", gridcolor="#F3E5F5", linecolor="#CE93D8")
     st.plotly_chart(fig_hist, use_container_width=True)
 
 with col_d:
     band_data = dff["score_band"].value_counts().reset_index()
     band_data.columns = ["Band","Count"]
     band_order = ["Cold (0–19)","Warm (20–39)","MQL (≥40)"]
-    band_colors_map = {"Cold (0–19)":COLORS["red"],"Warm (20–39)":COLORS["orange"],"MQL (≥40)":COLORS["teal"]}
+    band_colors_map = {"Cold (0–19)":COLORS["blue"],"Warm (20–39)":COLORS["purple"],"MQL (≥40)":COLORS["pink"]}
     band_data["order"] = band_data["Band"].map({b:i for i,b in enumerate(band_order)})
     band_data = band_data.sort_values("order")
     
     fig_band = go.Figure(go.Funnel(
         y=band_data["Band"], x=band_data["Count"], textinfo="value+percent initial",
-        textfont=dict(size=14, color="#1E293B", weight="bold"),
-        marker=dict(color=[band_colors_map.get(b,"#CBD5E1") for b in band_data["Band"]], line=dict(color="#FFFFFF", width=2))
+        textfont=dict(size=14, color="#1A237E", weight="bold"),
+        marker=dict(color=[band_colors_map.get(b,"#CE93D8") for b in band_data["Band"]], line=dict(color="#FFFFFF", width=2))
     ))
     fig_band.update_layout(**CHART_LAYOUT)
     fig_band.update_layout(title="Phễu Chuyển Đổi Lead")
@@ -296,24 +301,24 @@ with col_g:
     src_data = dff.groupby("source").agg(Contacts=("contact_id","count")).reset_index().sort_values("Contacts", ascending=True)
     fig_src = go.Figure(go.Bar(
         x=src_data["Contacts"], y=src_data["source"], orientation="h",
-        marker=dict(color=COLORS["purple"], line=dict(color="#0F766E", width=1)),
-        text=[f"  {v} contacts" for v in src_data["Contacts"]], textposition="inside", textfont=dict(size=12, color="#1E293B"),
+        marker=dict(color=COLORS["indigo"], line=dict(color="#3949AB", width=1)),
+        text=[f"  {v} contacts" for v in src_data["Contacts"]], textposition="inside", textfont=dict(size=12, color="#1A237E"),
     ))
     fig_src.update_layout(title="Kênh Thu Hút Khách Hàng (Source)", **{k:v for k,v in CHART_LAYOUT.items() if k not in ['xaxis']})
-    fig_src.update_xaxes(title="Số contacts", gridcolor="#F1F5F9")
+    fig_src.update_xaxes(title="Số contacts", gridcolor="#F3E5F5")
     st.plotly_chart(fig_src, use_container_width=True)
 
 with col_h:
     city_data = dff.groupby("city").agg(Contacts=("contact_id","count")).reset_index().sort_values("Contacts", ascending=False).head(8)
-    city_colors = [COLORS["teal"] if c in ["TP.HCM","Hà Nội"] else COLORS["blue"] for c in city_data["city"]]
+    city_colors = [COLORS["pink"] if c in ["TP.HCM","Hà Nội"] else COLORS["purple"] for c in city_data["city"]]
     fig_city = go.Figure(go.Bar(
         x=city_data["city"], y=city_data["Contacts"],
-        marker=dict(color=city_colors, line=dict(color="#0F766E", width=1.5)),
-        text=city_data["Contacts"], textposition="outside", textfont=dict(size=12, color="#1E293B"),
+        marker=dict(color=city_colors, line=dict(color="#D81B60", width=1.5)),
+        text=city_data["Contacts"], textposition="outside", textfont=dict(size=12, color="#1A237E"),
     ))
     fig_city.update_layout(**CHART_LAYOUT)
     fig_city.update_layout(title="Top 8 Thành Phố")
-    fig_city.update_yaxes(title="Số contacts", gridcolor="#F1F5F9")
+    fig_city.update_yaxes(title="Số contacts", gridcolor="#F3E5F5")
     fig_city.update_xaxes(tickangle=-20)
     st.plotly_chart(fig_city, use_container_width=True)
 
@@ -332,8 +337,8 @@ st.dataframe(display_df.head(50), use_container_width=True, height=380)
 
 st.markdown("---")
 st.markdown(
-    "<div style='text-align:center;color:#64748B;font-size:13px'>"
-    "<b>COOLMATE ANALYTICS DASHBOARD</b> | Pre-Campaign Snapshot 2025"
+    "<div style='text-align:center;color:#3949AB;font-size:13px; font-weight:600;'>"
+    "COOLMATE ANALYTICS DASHBOARD | Pre-Campaign Snapshot 2025"
     "</div>",
     unsafe_allow_html=True
 )
