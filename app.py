@@ -13,16 +13,16 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS (Ép xung hiệu ứng Hover & Sửa giao diện) ──────────────────
+# ── Custom CSS (Hover nảy + Bung chữ ghi chú) ──────────────────────────
 st.markdown("""
 <style>
-  /* Nền tổng thể: Tím/Hồng pastel rất nhạt */
+  /* Nền tổng thể */
   .stApp { background-color: #FDF8FF; color: #1A237E; }
   
-  /* Sidebar: Hồng phấn */
+  /* Sidebar */
   [data-testid="stSidebar"] { background-color: #FFF0F5; border-right: 1px solid #FCE4EC; }
   
-  /* 🌟 CÁC Ô SỐ LIỆU (METRIC CARDS) - NHẮM THẲNG VÀO LỚP LÕI 🌟 */
+  /* 🌟 CÁC Ô SỐ LIỆU: ÉP NẢY (HOVER) LÊN LỚP TRÊN CÙNG 🌟 */
   div[data-testid="stMetric"], [data-testid="metric-container"] {
     background-color: #FFFFFF !important;
     border: 1px solid #F3E5F5 !important;
@@ -35,12 +35,11 @@ st.markdown("""
     z-index: 1 !important;
   }
   
-  /* 🌟 HIỆU ỨNG KHI ĐƯA CHUỘT VÀO (HOVER) BAO NẢY 🌟 */
   div[data-testid="stMetric"]:hover, [data-testid="metric-container"]:hover {
     transform: translateY(-8px) scale(1.02) !important; 
     box-shadow: 0 15px 30px rgba(216, 27, 96, 0.25) !important; 
     border-color: #D81B60 !important; 
-    z-index: 99 !important; /* Ép nổi lên trên cùng */
+    z-index: 99 !important; 
   }
 
   div[data-testid="stMetric"] label, [data-testid="metric-container"] label { 
@@ -50,28 +49,30 @@ st.markdown("""
     color: #D81B60 !important; font-size: 26px !important; font-weight: 800 !important;
   }
   
-  /* 🌟 FIX LỖI CHỮ BỊ CẮT THÀNH DẤU ... 🌟 */
-  [data-testid="stMetricDelta"] > div {
-    white-space: normal !important; 
+  /* 🌟 FIX LỖI MẤT CHỮ VÀ BỊ CẮT CHỮ (...) 🌟 */
+  [data-testid="stMetricDelta"] * {
+    white-space: normal !important; /* Ép mọi thứ bên trong rớt dòng */
     overflow: visible !important;
-    text-overflow: clip !important;
-    font-size: 12px !important;
-    color: #5C6BC0 !important; 
-    font-weight: 500 !important;
-    line-height: 1.4 !important;
-    margin-top: 5px !important;
   }
   
-  /* Ẩn mũi tên mặc định của Streamlit ở phần ghi chú */
+  [data-testid="stMetricDelta"] p {
+    color: #5C6BC0 !important; /* Trả lại màu xanh nhạt dễ đọc */
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    margin-top: 4px !important;
+    display: block !important;
+  }
+  
+  /* Ẩn mũi tên mặc định của Streamlit (nếu có) */
   [data-testid="stMetricDelta"] svg {
     display: none !important;
   }
   
-  /* Tiêu đề */
+  /* Tiêu đề & Header */
   h1 { color: #880E4F !important; font-size: 28px !important; font-weight: 800 !important; text-transform: uppercase; }
   h2, h3 { color: #1A237E !important; font-weight: 700 !important; }
   
-  /* Header của từng phần */
   .section-header {
     background: linear-gradient(90deg, #FCE4EC, transparent);
     border-left: 6px solid #D81B60;
