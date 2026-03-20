@@ -111,11 +111,13 @@ COLORS = {
     "indigo":  "#9FA8DA", "rose":    "#FFAB91", "deep_pink": "#D81B60",
     "navy":    "#1A237E"
 }
+
+# 🔥 ĐÃ CẬP NHẬT: Màu sắc theo đúng chuẩn phân khúc Gym mới (tone Pastel)
 SEG_COLORS = {
-    "Office-Gym Power User": "#F48FB1", 
-    "Gym Enthusiast":        "#CE93D8", 
-    "Office Professional":   "#90CAF9", 
-    "General Consumer":      "#BCAAA4", 
+    "Gym (5+ lần/tuần)":      "#FFB3BA", # Pastel Pink
+    "Gym (3-4 lần/tuần)":     "#B39EB5", # Pastel Purple
+    "Gym (1-2 lần/tuần)":     "#FFB347", # Pastel Orange
+    "Office (Không tập Gym)": "#AEC6CF", # Pastel Blue
 }
 
 CHART_LAYOUT = dict(
@@ -155,13 +157,17 @@ def load_data():
     df["email_ctr_30d_t0"] = pd.to_numeric(df["email_ctr_30d_t0"], errors="coerce").fillna(0)
     df["page_views_30d_t0"] = pd.to_numeric(df["page_views_30d_t0"], errors="coerce").fillna(0)
         
+    # 🔥 ĐÃ CẬP NHẬT: Phân loại theo tần suất Gym y như Colab
     def seg(row):
-        gym_hi = str(row.get("gym_frequency", "")) in ["3-4 lần/tuần","5+ lần/tuần"]
-        office = str(row.get("office_worker_type", "")) == "Văn phòng toàn thời gian"
-        if gym_hi and office:  return "Office-Gym Power User"
-        elif gym_hi:           return "Gym Enthusiast"
-        elif office:           return "Office Professional"
-        else:                  return "General Consumer"
+        gym = str(row.get('gym_frequency', '')).lower()
+        if '1' in gym or '2' in gym: 
+            return 'Gym (1-2 lần/tuần)'
+        elif '3' in gym or '4' in gym: 
+            return 'Gym (3-4 lần/tuần)'
+        elif '5' in gym or '+' in gym: 
+            return 'Gym (5+ lần/tuần)'
+        else: 
+            return 'Office (Không tập Gym)'
     df["segment"] = df.apply(seg, axis=1)
     
     def band(s):
